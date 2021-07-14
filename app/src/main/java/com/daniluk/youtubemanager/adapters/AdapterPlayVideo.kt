@@ -28,8 +28,8 @@ class AdapterPlayVideo : RecyclerView.Adapter<AdapterPlayVideo.VideoHolder>() {
     }
 
     override fun onBindViewHolder(holder: VideoHolder, position: Int) {
-        holder.title.text = listVideo.get(position).title
-        holder.description.text = listVideo.get(position).description
+        holder.title.text = listVideo[position].title
+        holder.description.text = listVideo[position].description
     }
 
     override fun getItemCount() = listVideo.size
@@ -38,7 +38,7 @@ class AdapterPlayVideo : RecyclerView.Adapter<AdapterPlayVideo.VideoHolder>() {
         val description = itemView.tvItemPlayDescription
         val title = itemView.tvItemPlayTitle
         val image = itemView.ivPlay
-        val btDelete = itemView.btDelete
+        private val btDelete = itemView.btDelete
 
         init {
             btDelete.setOnClickListener {

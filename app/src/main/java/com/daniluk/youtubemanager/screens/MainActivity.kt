@@ -10,7 +10,7 @@ import com.daniluk.youtubemanager.YoutubeViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
-    val viewModel by viewModels<YoutubeViewModel>()
+    //val viewModel by viewModels<YoutubeViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

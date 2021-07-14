@@ -20,8 +20,9 @@ class AdapterSearchVideo: RecyclerView.Adapter<AdapterSearchVideo.VideoHolder>()
     }
 
     override fun onBindViewHolder(holder: VideoHolder, position: Int) {
-        holder.title.text = listVideo.get(position).title
-        holder.description.text = listVideo.get(position).description
+        holder.title.text = listVideo[position].title
+        holder.description.text = listVideo[position].description
+        holder.checkBox.isChecked = listVideo[position].checkBox
     }
 
     override fun getItemCount() = listVideo.size
@@ -34,8 +35,7 @@ class AdapterSearchVideo: RecyclerView.Adapter<AdapterSearchVideo.VideoHolder>()
 
         init {
             checkBox.setOnClickListener {
-                //checkBox.isChecked = ! checkBox.isChecked
-                listVideo.get(position).checkBox = checkBox.isChecked
+                listVideo[position].checkBox = checkBox.isChecked
             }
         }
     }
