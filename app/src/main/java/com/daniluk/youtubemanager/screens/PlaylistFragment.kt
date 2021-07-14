@@ -1,13 +1,17 @@
-package com.daniluk.youtubemanager
+package com.daniluk.youtubemanager.screens
 
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.fragment_youtube.*
+import com.daniluk.youtubemanager.adapters.AdapterPlayVideo
+import com.daniluk.youtubemanager.R
+import com.daniluk.youtubemanager.data.YoutubeVideo
+import com.daniluk.youtubemanager.YoutubeViewModel
+import kotlinx.android.synthetic.main.fragment_playlist.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -16,15 +20,15 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [BlankFragment.newInstance] factory method to
+ * Use the [PlaylistFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class BlankFragment : Fragment() {
+class PlaylistFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    val viewModel by activityViewModels<YoutubeViewModel>()
 
+    val viewModel by activityViewModels<YoutubeViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,42 +43,29 @@ class BlankFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_youtube, container, false)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+        return inflater.inflate(R.layout.fragment_playlist, container, false)
     }
 
     override fun onStart() {
         super.onStart()
 
-        val adapter = AdapterSearchVideo()
-        rvSearchVideo.layoutManager = LinearLayoutManager(context)
-        rvSearchVideo.adapter = adapter
+        viewModel.searchListVideo.value?.add(YoutubeVideo("Title_1", "Desc_1"))
+        viewModel.searchListVideo.value?.add(YoutubeVideo("Title_2", "Description_2"))
 
-        viewModel.searchListVideo.observe(this,{
-            if (it.isEmpty()){
-                btAdd.visibility = View.INVISIBLE
-            }else{
-                btAdd.visibility = View.VISIBLE
-            }
-            adapter.listVideo = it
-        })
-
-        btAdd.setOnClickListener {
-            val list = viewModel.searchListVideo.value ?: return@setOnClickListener
-            for (video in list){
-                if (video.checkBox){
-                    val set = viewModel.playListVideo.value?.toMutableSet()
-                    set?.add(video)
-                    viewModel.playListVideo.value = set?.toList()?.toMutableList()
-                }
+        val adapter = AdapterPlayVideo()
+        adapter.deleteVideo = object: AdapterPlayVideo.DeleteVideo {
+            override fun delete(position: Int) {
+                val list = viewModel.playListVideo.value
+                list?.removeAt(position)
+                viewModel.playListVideo.value = list
             }
         }
+        rvPlayVideo.layoutManager = LinearLayoutManager(context)
+        rvPlayVideo.adapter = adapter
 
-
-
+        viewModel.playListVideo.observe(this, {
+            adapter.listVideo = it
+        })
 
     }
 
@@ -85,12 +76,12 @@ class BlankFragment : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment BlankFragment.
+         * @return A new instance of fragment PlaylistFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            BlankFragment().apply {
+            PlaylistFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)

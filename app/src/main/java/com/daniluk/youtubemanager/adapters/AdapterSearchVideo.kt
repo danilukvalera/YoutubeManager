@@ -1,9 +1,11 @@
-package com.daniluk.youtubemanager
+package com.daniluk.youtubemanager.adapters
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.daniluk.youtubemanager.R
+import com.daniluk.youtubemanager.data.YoutubeVideo
 import kotlinx.android.synthetic.main.item_list_video.view.*
 
 class AdapterSearchVideo: RecyclerView.Adapter<AdapterSearchVideo.VideoHolder>() {

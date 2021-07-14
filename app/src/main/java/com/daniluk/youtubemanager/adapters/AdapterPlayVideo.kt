@@ -1,10 +1,12 @@
-package com.daniluk.youtubemanager
+package com.daniluk.youtubemanager.adapters
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.item_list_video.view.*
+import com.daniluk.youtubemanager.R
+import com.daniluk.youtubemanager.data.YoutubeVideo
 import kotlinx.android.synthetic.main.item_play_list.view.*
 
 class AdapterPlayVideo : RecyclerView.Adapter<AdapterPlayVideo.VideoHolder>() {
@@ -14,7 +16,7 @@ class AdapterPlayVideo : RecyclerView.Adapter<AdapterPlayVideo.VideoHolder>() {
             notifyDataSetChanged()
         }
 
-    val deleteVideo: DeleteVideo? = null
+    var deleteVideo: DeleteVideo? = null
     interface DeleteVideo {
         fun delete(position: Int)
     }
@@ -42,6 +44,11 @@ class AdapterPlayVideo : RecyclerView.Adapter<AdapterPlayVideo.VideoHolder>() {
             btDelete.setOnClickListener {
                 deleteVideo?.delete(position = position)
             }
+
+            itemView.clParent.setOnClickListener {
+                Toast.makeText(itemView.context, listVideo.get(position).title, Toast.LENGTH_SHORT).show()
+            }
+
         }
     }
 

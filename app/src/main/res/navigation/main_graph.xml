@@ -6,12 +6,12 @@
     app:startDestination="@id/youtubeFragment">
     <fragment
         android:id="@+id/youtubeFragment"
-        android:name="com.daniluk.youtubemanager.BlankFragment"
+        android:name="com.daniluk.youtubemanager.screens.BlankFragment"
         android:label="fragment_blank"
         tools:layout="@layout/fragment_youtube" />
     <fragment
         android:id="@+id/playlistFragment"
-        android:name="com.daniluk.youtubemanager.PlaylistFragment"
+        android:name="com.daniluk.youtubemanager.screens.PlaylistFragment"
         android:label="fragment_playlist"
         tools:layout="@layout/fragment_playlist" />
 </navigation>

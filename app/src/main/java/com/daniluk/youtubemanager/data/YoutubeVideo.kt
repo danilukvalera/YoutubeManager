@@ -1,4 +1,4 @@
-package com.daniluk.youtubemanager
+package com.daniluk.youtubemanager.data
 
 data class YoutubeVideo(
     val title: String = "",
