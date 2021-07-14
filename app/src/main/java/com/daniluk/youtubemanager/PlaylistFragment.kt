@@ -5,6 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.android.synthetic.main.fragment_playlist.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -16,10 +19,12 @@ private const val ARG_PARAM2 = "param2"
  * Use the [PlaylistFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class PlaylistFragment : Fragment() {
+class PlaylistFragment : Fragment(), AdapterPlayVideo.DeleteVideo {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+
+    val viewModel by activityViewModels<YoutubeViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +40,22 @@ class PlaylistFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_playlist, container, false)
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        viewModel.searchListVideo.value?.add(YoutubeVideo("Title_1", "Desc_1"))
+        viewModel.searchListVideo.value?.add(YoutubeVideo("Title_2", "Description_2"))
+
+        val adapter = AdapterPlayVideo()
+        rvPlayVideo.layoutManager = LinearLayoutManager(context)
+        rvPlayVideo.adapter = adapter
+
+        viewModel.playListVideo.observe(this, {
+            adapter.listVideo = it
+        })
+
     }
 
     companion object {
@@ -55,5 +76,11 @@ class PlaylistFragment : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+    }
+
+    override fun delete(position: Int) {
+        val list = viewModel.playListVideo.value
+        list?.removeAt(position)
+        viewModel.playListVideo.value = list
     }
 }

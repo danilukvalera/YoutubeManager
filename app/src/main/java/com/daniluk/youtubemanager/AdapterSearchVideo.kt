@@ -4,9 +4,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.item_list_video.view.*
 
-class AdapterSearchVideo: RecyclerView.Adapter<VideoHolder>() {
-    var listVideo = arrayListOf<YoutubeVideo>()
+class AdapterSearchVideo: RecyclerView.Adapter<AdapterSearchVideo.VideoHolder>() {
+    var listVideo = listOf<YoutubeVideo>()
     set(value) {
         field = value
         notifyDataSetChanged()
@@ -17,9 +18,24 @@ class AdapterSearchVideo: RecyclerView.Adapter<VideoHolder>() {
     }
 
     override fun onBindViewHolder(holder: VideoHolder, position: Int) {
-        holder.title = listVideo.get(position).title
-        holder.description = listVideo.get(position).description
+        holder.title.text = listVideo.get(position).title
+        holder.description.text = listVideo.get(position).description
     }
 
     override fun getItemCount() = listVideo.size
+
+    inner class VideoHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+        val description = itemView.tvItemYoutubeDescription
+        val title = itemView.tvItemYoutubeTitle
+        val image = itemView.ivYoutube
+        val checkBox = itemView.cbYoutube
+
+        init {
+            checkBox.setOnClickListener {
+                //checkBox.isChecked = ! checkBox.isChecked
+                listVideo.get(position).checkBox = checkBox.isChecked
+            }
+        }
+    }
+
 }

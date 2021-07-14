@@ -1,5 +1,6 @@
 package com.daniluk.youtubemanager
 
+import android.graphics.PorterDuff
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
@@ -12,19 +13,23 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        supportActionBar?.hide()
+        btPlaylist.setBackgroundColor(resources.getColor(android.R.color.darker_gray))
+        btYoutube.setBackgroundColor(resources.getColor(android.R.color.holo_green_light))
 
         val navController = Navigation.findNavController(this, R.id.fragment)
 
         btPlaylist.setOnClickListener {
             navController.navigate(R.id.playlistFragment)
+            btPlaylist.setBackgroundColor(resources.getColor(android.R.color.holo_green_light))
+            btYoutube.setBackgroundColor(resources.getColor(android.R.color.darker_gray))
         }
 
         btYoutube.setOnClickListener {
             navController.navigate(R.id.youtubeFragment)
+            btPlaylist.setBackgroundColor(resources.getColor(android.R.color.darker_gray))
+            btYoutube.setBackgroundColor(resources.getColor(android.R.color.holo_green_light))
         }
 
-        viewModel.searchListVideo.add(YoutubeVideo("Title_1", "Description_1"))
-        viewModel.searchListVideo.add(YoutubeVideo("Title_2", "Description_3"))
-        viewModel.searchListVideo.add(YoutubeVideo("Title_3", "Description_3"))
     }
 }

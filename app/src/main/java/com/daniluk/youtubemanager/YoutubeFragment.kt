@@ -1,12 +1,11 @@
 package com.daniluk.youtubemanager
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.viewModels
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_youtube.*
 
@@ -24,7 +23,8 @@ class BlankFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    val viewModel by viewModels<YoutubeViewModel>()
+    val viewModel by activityViewModels<YoutubeViewModel>()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,15 +44,38 @@ class BlankFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+    }
 
-        viewModel.searchListVideo.add(YoutubeVideo("Title_1", "Description_1"))
-        viewModel.searchListVideo.add(YoutubeVideo("Title_2", "Description_3"))
-        viewModel.searchListVideo.add(YoutubeVideo("Title_3", "Description_3"))
+    override fun onStart() {
+        super.onStart()
 
         val adapter = AdapterSearchVideo()
         rvSearchVideo.layoutManager = LinearLayoutManager(context)
         rvSearchVideo.adapter = adapter
-        adapter.listVideo = viewModel.searchListVideo
+
+        viewModel.searchListVideo.observe(this,{
+            if (it.isEmpty()){
+                btAdd.visibility = View.INVISIBLE
+            }else{
+                btAdd.visibility = View.VISIBLE
+            }
+            adapter.listVideo = it
+        })
+
+        btAdd.setOnClickListener {
+            val list = viewModel.searchListVideo.value ?: return@setOnClickListener
+            for (video in list){
+                if (video.checkBox){
+                    val set = viewModel.playListVideo.value?.toMutableSet()
+                    set?.add(video)
+                    viewModel.playListVideo.value = set?.toList()?.toMutableList()
+                }
+            }
+        }
+
+
+
+
     }
 
     companion object {
