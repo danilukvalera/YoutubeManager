@@ -23,6 +23,14 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class BlankFragment : Fragment() {
+    // API_KEY = "AIzaSyB3Q1HpkHmYh-2C_ZjC7Qwa2dp-MR4CCyA"    //для этого андроид приложения
+    // API_KEY = "AIzaSyDtzsgyNZ3VpVGnEsJy-9Kf3Bm6g_F6z_8"    //общий
+
+    //ID = "youtubemanager-319910"
+
+    //https://developers.google.com/youtube/v3/docs/activities/list?apix_params=%7B%22part%22%3A%5B%22snippet%2CcontentDetails%22%5D%2C%22channelId%22%3A%22UC_x5XG1OV2P6uZZ5FSM9Ttw%22%2C%22maxResults%22%3A25%7D
+
+
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null

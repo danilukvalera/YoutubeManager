@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
     override fun onBackPressed() {
         AlertDialog.Builder(this).apply {
             setTitle("Подтверждение")
-            setMessage("Вы уверены, что хотите выйти из программы?")
+            setMessage("Вы уверены, что хотите выйти из приложения?")
 
             setPositiveButton("Да") { _, _ ->
                 super.onBackPressed()
