@@ -6,7 +6,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.daniluk.youtubemanager.R
-import com.daniluk.youtubemanager.data.YoutubeVideo
+import com.daniluk.youtubemanager.pojo.YoutubeVideo
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_play_list.view.*
 
 class AdapterPlayVideo : RecyclerView.Adapter<AdapterPlayVideo.VideoHolder>() {
@@ -30,6 +31,7 @@ class AdapterPlayVideo : RecyclerView.Adapter<AdapterPlayVideo.VideoHolder>() {
     override fun onBindViewHolder(holder: VideoHolder, position: Int) {
         holder.title.text = listVideo[position].title
         holder.description.text = listVideo[position].description
+        Picasso.get().load(listVideo[position].imageUrl).into(holder.image)
     }
 
     override fun getItemCount() = listVideo.size

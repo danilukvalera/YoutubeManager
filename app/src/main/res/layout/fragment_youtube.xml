@@ -18,10 +18,10 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageButton" />
+            app:layout_constraintTop_toBottomOf="@+id/btSearch" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName"
+            android:id="@+id/etEnterStringSearch"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -31,15 +31,16 @@
             android:hint="Search"
             android:inputType="textPersonName"
             android:shadowColor="@color/color_text"
+            android:text="Meral"
             android:textColor="@color/color_text"
             android:textColorHint="@color/color_text"
-            app:layout_constraintBottom_toBottomOf="@+id/imageButton"
-            app:layout_constraintEnd_toStartOf="@+id/imageButton"
+            app:layout_constraintBottom_toBottomOf="@+id/btSearch"
+            app:layout_constraintEnd_toStartOf="@+id/btSearch"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/imageButton" />
+            app:layout_constraintTop_toTopOf="@+id/btSearch" />
 
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/btSearch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"

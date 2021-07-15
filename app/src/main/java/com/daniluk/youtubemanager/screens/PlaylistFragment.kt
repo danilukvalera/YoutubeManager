@@ -9,7 +9,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.daniluk.youtubemanager.adapters.AdapterPlayVideo
 import com.daniluk.youtubemanager.R
-import com.daniluk.youtubemanager.data.YoutubeVideo
+import com.daniluk.youtubemanager.pojo.YoutubeVideo
 import com.daniluk.youtubemanager.YoutubeViewModel
 import kotlinx.android.synthetic.main.fragment_playlist.*
 
@@ -48,9 +48,6 @@ class PlaylistFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-
-        viewModel.searchListVideo.value?.add(YoutubeVideo("Title_1", "Desc_1"))
-        viewModel.searchListVideo.value?.add(YoutubeVideo("Title_2", "Description_2"))
 
         val adapter = AdapterPlayVideo()
         adapter.deleteVideo = object: AdapterPlayVideo.DeleteVideo {

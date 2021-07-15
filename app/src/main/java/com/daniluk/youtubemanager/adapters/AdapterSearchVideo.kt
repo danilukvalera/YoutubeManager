@@ -5,7 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.daniluk.youtubemanager.R
-import com.daniluk.youtubemanager.data.YoutubeVideo
+import com.daniluk.youtubemanager.pojo.YoutubeVideo
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_list_video.view.*
 
 class AdapterSearchVideo: RecyclerView.Adapter<AdapterSearchVideo.VideoHolder>() {
@@ -23,6 +24,7 @@ class AdapterSearchVideo: RecyclerView.Adapter<AdapterSearchVideo.VideoHolder>()
         holder.title.text = listVideo[position].title
         holder.description.text = listVideo[position].description
         holder.checkBox.isChecked = listVideo[position].checkBox
+        Picasso.get().load(listVideo[position].imageUrl).into(holder.image)
     }
 
     override fun getItemCount() = listVideo.size
