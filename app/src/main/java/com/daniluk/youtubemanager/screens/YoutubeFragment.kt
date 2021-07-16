@@ -2,14 +2,11 @@ package com.daniluk.youtubemanager.screens
 
 import android.app.Activity
 import android.os.Bundle
-import android.text.Editable
-import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,7 +16,7 @@ import com.daniluk.youtubemanager.YoutubeViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_youtube.*
 
-// TODO: Rename parameter arguments, choose names that match
+// Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -30,10 +27,10 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class BlankFragment : Fragment() {
-    // TODO: Rename and change types of parameters
+    // Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    val viewModel by activityViewModels<YoutubeViewModel>()
+    private val viewModel by activityViewModels<YoutubeViewModel>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,10 +47,6 @@ class BlankFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return  inflater.inflate(R.layout.fragment_youtube, container, false)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
     }
 
     override fun onStart() {
@@ -84,25 +77,21 @@ class BlankFragment : Fragment() {
         }
 
         //обработчик нажатия кнопки ENTER экранной клавиатуры
-        etEnterStringSearch.setOnEditorActionListener(object: TextView.OnEditorActionListener{
-            override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
-                if (actionId == EditorInfo.IME_ACTION_GO){
-                    val str = etEnterStringSearch.text.toString().trim()
-                    if (! str.isEmpty()) {
-                        etEnterStringSearch.setText("")
-                        viewModel.searchVideo(str)
-                    }
-
+        etEnterStringSearch.setOnEditorActionListener { v, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_GO) {
+                val str = etEnterStringSearch.text.toString().trim()
+                if (str.isNotEmpty()) {
+                    etEnterStringSearch.setText("")
+                    viewModel.searchVideo(str)
                 }
-                //Спрятать клавиатуру
-                val imm = context?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-                imm.hideSoftInputFromWindow(v?.windowToken, 0)
 
-                return true
             }
+            //Спрятать клавиатуру
+            val imm = context?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(v?.windowToken, 0)
 
-        } )
-
+            true
+        }
 
 
     }
@@ -116,7 +105,7 @@ class BlankFragment : Fragment() {
          * @param param2 Parameter 2.
          * @return A new instance of fragment BlankFragment.
          */
-        // TODO: Rename and change types and number of parameters
+        // Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             BlankFragment().apply {

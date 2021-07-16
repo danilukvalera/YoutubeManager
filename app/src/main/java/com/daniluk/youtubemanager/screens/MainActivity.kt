@@ -10,26 +10,24 @@ import com.daniluk.youtubemanager.YoutubeViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
-    val viewModel by viewModels<YoutubeViewModel>()
+    private val viewModel by viewModels<YoutubeViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         supportActionBar?.hide()
-        btPlaylist.setBackgroundColor(resources.getColor(android.R.color.darker_gray))
-        btYoutube.setBackgroundColor(resources.getColor(android.R.color.holo_green_light))
 
         val navController = Navigation.findNavController(this, R.id.fragment)
 
         viewModel.typeFragment.observe(this, {
             if (it){
                 navController.navigate(R.id.youtubeFragment)
-                btPlaylist.setBackgroundColor(resources.getColor(android.R.color.darker_gray))
-                btYoutube.setBackgroundColor(resources.getColor(android.R.color.holo_green_light))
+                btPlaylist.setBackgroundColor(this.getColor(android.R.color.darker_gray))
+                btYoutube.setBackgroundColor(this.getColor(android.R.color.holo_green_light))
             }else{
                 navController.navigate(R.id.playlistFragment)
-                btPlaylist.setBackgroundColor(resources.getColor(android.R.color.holo_green_light))
-                btYoutube.setBackgroundColor(resources.getColor(android.R.color.darker_gray))
+                btPlaylist.setBackgroundColor(this.getColor(android.R.color.holo_green_light))
+                btYoutube.setBackgroundColor(this.getColor(android.R.color.darker_gray))
             }
         })
 
@@ -43,6 +41,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    //переопределение функции нажатия кнопки back
     override fun onBackPressed() {
         AlertDialog.Builder(this).apply {
             //setTitle("")
@@ -59,4 +58,6 @@ class MainActivity : AppCompatActivity() {
             setCancelable(true)
         }.create().show()
     }
+
+
 }
