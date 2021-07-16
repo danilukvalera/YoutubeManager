@@ -14,40 +14,27 @@
             android:id="@+id/rvSearchVideo"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btSearch" />
+            app:layout_constraintTop_toBottomOf="@+id/etEnterStringSearch" />
 
         <EditText
             android:id="@+id/etEnterStringSearch"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="24dp"
+            android:layout_marginTop="16dp"
             android:backgroundTint="@color/color_text"
             android:ems="10"
             android:hint="Search"
+            android:imeOptions="actionGo"
             android:inputType="textPersonName"
             android:shadowColor="@color/color_text"
-            android:text="Meral"
             android:textColor="@color/color_text"
             android:textColorHint="@color/color_text"
-            app:layout_constraintBottom_toBottomOf="@+id/btSearch"
-            app:layout_constraintEnd_toStartOf="@+id/btSearch"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/btSearch" />
-
-        <ImageButton
-            android:id="@+id/btSearch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:backgroundTint="@color/teal_200"
-            android:src="@android:drawable/ic_menu_send"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton

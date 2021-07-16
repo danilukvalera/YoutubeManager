@@ -1,5 +1,6 @@
 package com.daniluk.youtubemanager
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.daniluk.youtubemanager.api.ApiFactory
@@ -10,8 +11,13 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 class YoutubeViewModel: ViewModel() {
-    val searchListVideo = MutableLiveData(mutableListOf<YoutubeVideo>())
-    val playListVideo = MutableLiveData(mutableListOf<YoutubeVideo>())
+    val searchListVideo = MutableLiveData(mutableListOf<YoutubeVideo>()) //список найденных видео
+    val playListVideo = MutableLiveData(mutableListOf<YoutubeVideo>())   //плейлист
+    var typeFragment = MutableLiveData(true) //true - фрагмент поиска, false - фрагмент плейлиста
+
+    init {
+        searchVideo("Tom and Jerry")
+    }
 
     fun searchVideo(stringSearch: String){
         ApiFactory.apiService.searchVideo(stringSearch).enqueue(object: Callback<FullResponse>{

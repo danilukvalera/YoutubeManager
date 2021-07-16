@@ -1,10 +1,15 @@
 package com.daniluk.youtubemanager.screens
 
+import android.app.Activity
 import android.os.Bundle
 import android.text.Editable
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -44,7 +49,7 @@ class BlankFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_youtube, container, false)
+        return  inflater.inflate(R.layout.fragment_youtube, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -78,14 +83,25 @@ class BlankFragment : Fragment() {
             }
         }
 
-        //etEnterStringSearch.text = "Meral"
-        btSearch.setOnClickListener {
-            val str = etEnterStringSearch.text.toString().trim()
-            if (! str.isEmpty()) {
-                viewModel.searchVideo(str)
-            }else return@setOnClickListener
-        }
+        //обработчик нажатия кнопки ENTER экранной клавиатуры
+        etEnterStringSearch.setOnEditorActionListener(object: TextView.OnEditorActionListener{
+            override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
+                if (actionId == EditorInfo.IME_ACTION_GO){
+                    val str = etEnterStringSearch.text.toString().trim()
+                    if (! str.isEmpty()) {
+                        etEnterStringSearch.setText("")
+                        viewModel.searchVideo(str)
+                    }
 
+                }
+                //Спрятать клавиатуру
+                val imm = context?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(v?.windowToken, 0)
+
+                return true
+            }
+
+        } )
 
 
 
