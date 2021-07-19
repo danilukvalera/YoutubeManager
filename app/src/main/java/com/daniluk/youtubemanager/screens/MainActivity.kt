@@ -1,5 +1,6 @@
 package com.daniluk.youtubemanager.screens
 
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
@@ -22,12 +23,26 @@ class MainActivity : AppCompatActivity() {
         viewModel.typeFragment.observe(this, {
             if (it){
                 navController.navigate(R.id.youtubeFragment)
-                btPlaylist.setBackgroundColor(this.getColor(android.R.color.darker_gray))
-                btYoutube.setBackgroundColor(this.getColor(android.R.color.holo_green_light))
+                if (Build.VERSION.SDK_INT > 22) {
+                    btPlaylist.setBackgroundColor(this.getColor(android.R.color.darker_gray))
+                    btYoutube.setBackgroundColor(this.getColor(android.R.color.holo_green_light))
+                }else{
+                    @Suppress("DEPRECATION")
+                    btPlaylist.setBackgroundColor(resources.getColor(android.R.color.darker_gray))
+                    @Suppress("DEPRECATION")
+                    btYoutube.setBackgroundColor(resources.getColor(android.R.color.holo_green_light))
+                }
             }else{
                 navController.navigate(R.id.playlistFragment)
+                if (Build.VERSION.SDK_INT > 22) {
                 btPlaylist.setBackgroundColor(this.getColor(android.R.color.holo_green_light))
                 btYoutube.setBackgroundColor(this.getColor(android.R.color.darker_gray))
+                }else {
+                    @Suppress("DEPRECATION")
+                    btPlaylist.setBackgroundColor(resources.getColor(android.R.color.holo_green_light))
+                    @Suppress("DEPRECATION")
+                    btYoutube.setBackgroundColor(resources.getColor(android.R.color.darker_gray))
+                }
             }
         })
 

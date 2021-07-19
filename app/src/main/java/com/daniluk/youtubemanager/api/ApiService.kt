@@ -4,9 +4,7 @@ import android.util.Log
 import com.daniluk.youtubemanager.pojo.FullResponse
 import retrofit2.Call
 import retrofit2.http.GET
-import retrofit2.http.Path
 import retrofit2.http.Query
-import retrofit2.http.QueryMap
 
 interface ApiService {
     //Поиск видео
@@ -31,7 +29,8 @@ interface ApiService {
         const val PARAM_PATR_SNIPPET = "snippet"                                //String
         const val PARAM_MAX_RESULTS = 25                                        //Int
 
-        const val LOG_YOUTUBE = "yuotube"
+        //функция логирования (для удобства)
+        private const val LOG_YOUTUBE = "yuotube"
         fun createLog(message: String) {
             Log.d(LOG_YOUTUBE, message)
         }

@@ -17,7 +17,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class YoutubeViewModel(application: Application): AndroidViewModel(application) {
-    val context = application.applicationContext
+    private val context = application.applicationContext
     val searchListVideo = MutableLiveData(mutableListOf<YoutubeVideo>()) //список найденных видео
     val playListVideo = MutableLiveData(mutableListOf<YoutubeVideo>())   //плейлист
     var typeFragment = MutableLiveData(true) //true - фрагмент поиска, false - фрагмент плейлиста
@@ -69,7 +69,9 @@ class YoutubeViewModel(application: Application): AndroidViewModel(application) 
                 val capabilities = cm.getNetworkCapabilities(an) ?: return  false
                 capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
             }else {
+                @Suppress("DEPRECATION")
                 val a = cm.activeNetworkInfo ?: return false
+                @Suppress("DEPRECATION")
                 a.isConnected && (a.type == ConnectivityManager.TYPE_WIFI || a.type == ConnectivityManager.TYPE_MOBILE)
             }
         } catch (e: Exception) {
